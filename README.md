@@ -1,3 +1,3 @@
 # Feather Application
 
-The actual Feather application logic.
+Application logic for Feather.

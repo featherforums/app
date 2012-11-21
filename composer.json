@@ -1,7 +1,7 @@
 {
 	"name": "feather/app",
 	"type": "library",
-	"description": "A lightweight, fully awesome forum built on Laravel.",
+	"description": "Application logic for Feather.",
 	"license": "BSD-3-Clause",
 	"authors": [
 		{
