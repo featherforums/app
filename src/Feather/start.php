@@ -80,7 +80,7 @@ require __DIR__.'/facades.php';
 |
 */
 
-$app['feather']['view']->registerCutlassCompiler();
+$app['feather']['view']->registerCompiler();
 
 $app['feather']['view']->prepareThemePaths(array(
 	'path'		  => $app['feather']['path'],
