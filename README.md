@@ -1,3 +1,3 @@
 # Feather Application
 
-A lightweight, fully awesome forum package built on Laravel.
+The actual Feather application logic.
