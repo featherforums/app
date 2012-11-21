@@ -34,16 +34,16 @@ $app['feather']['path.themes'] = __DIR__.'/Feather/Themes';
 |
 */
 
-$app['config']['feather'] = array_merge(require 'defaults.php', (array) $app['config']['feather']);
+$app['config']->package('feather/feather', __DIR__);
 
-$app['config']['database.connections.'.FEATHER_DATABASE] = $app['config']['feather.database'];
+$app['config']['database.connections.'.FEATHER_DATABASE] = $app['config']['feather::database'];
 
 // TODO: Remove after development.
 if ($app['cache']->has('config')) $app['cache']->forget('config');
 
 foreach (Models\Config::everything() as $item)
 {
-	$app['config']["feather.{$item->name}"] = $item->value;
+	$app['config']["feather::{$item->name}"] = $item->value;
 }
 
 /*
@@ -55,7 +55,7 @@ foreach (Models\Config::everything() as $item)
 |
 */
 
-foreach ($app['config']['feather.providers'] as $provider)
+foreach ($app['config']['feather::providers'] as $provider)
 {
 	$app->register(new $provider);
 }
