@@ -56,7 +56,7 @@ return array(
 	*/
 
 	'providers' => array(
-		'Feather\Extensions\Providers\ExtensionServiceProvider',
-		'Feather\View\Providers\ViewServiceProvider',
+		'Feather\Extensions\ExtensionServiceProvider',
+		'Feather\Presenter\PresenterServiceProvider',
 	)
 );
