@@ -80,9 +80,7 @@ require __DIR__.'/facades.php';
 |
 */
 
-$app['feather']['view']->registerCompiler();
-
-$app['feather']['view']->prepareThemePaths(array(
+$app['feather']['presenter']->prepare(array(
 	'path'		  => $app['feather']['path'],
 	'path.themes' => $app['feather']['path.themes']
 ));
@@ -92,11 +90,13 @@ $app['feather']['view']->prepareThemePaths(array(
 | Feather Extensions
 |--------------------------------------------------------------------------
 |
-| Register the enabled extensions with Feather.
+| Register the activated extensions with Feather.
 |
 */
 
-$app['feather']['extensions']->registerExtensions(Models\Extension::enabled());
+$extensions = Models\Extension::activated();
+
+$app['feather']['extensions']->registerExtensions($extensions);
 
 /*
 |--------------------------------------------------------------------------

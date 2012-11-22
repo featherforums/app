@@ -19,15 +19,15 @@ class Extension extends Base {
 	public $timestamps = false;
 
 	/**
-	 * Return all enabled extensions.
+	 * Return all activated extensions.
 	 * 
 	 * @return  array
 	 */
-	public static function enabled()
+	public static function activated()
 	{
 		return Cache::rememberForever('extensions', function()
 		{
-			return Extension::where('enabled', '=', 1)->get();
+			return Extension::where('activated', '=', 1)->get();
 		});
 	}
 
