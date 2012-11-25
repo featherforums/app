@@ -23,3 +23,14 @@ class Extension extends Facade {
 	protected static function getFacadeAccessor(){ return static::$app['feather']['extensions']; }
 
 }
+
+class Presenter extends Facade {
+
+	/**
+	 * Get the registered component.
+	 *
+	 * @return object
+	 */
+	protected static function getFacadeAccessor(){ return static::$app['feather']['presenter']; }
+
+}
