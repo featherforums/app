@@ -10,7 +10,6 @@
 */
 
 define('FEATHER_VERSION', '1.0.0');
-
 define('FEATHER_DATABASE', 'feather');
 
 /*
@@ -22,28 +21,47 @@ define('FEATHER_DATABASE', 'feather');
 |
 */
 
-$app['feather']['path.extensions'] = __DIR__.'/Feather/Extensions';
-$app['feather']['path.themes'] = __DIR__.'/Feather/Themes';
+$app['feather']['path.extensions'] = $app['path.base'].'/feather/extensions';
+$app['feather']['path.themes'] = $app['path.base'].'/feather/themes';
+
+/*
+|--------------------------------------------------------------------------
+| Extension Class Loading
+|--------------------------------------------------------------------------
+|
+| To keep extensions namespaced correctly we'll give the Composer
+| autoloader the namespace and path to our extensions directory.
+|
+*/
+
+$loader = require $app['path.base'].'/vendor/autoload.php';
+
+$loader->add('Feather\\Extensions', $app['path.base']);
 
 /*
 |--------------------------------------------------------------------------
 | Feather Configuration
 |--------------------------------------------------------------------------
 |
-| Register the Feather database connection and the configuration.
+| Register some important configuration options that allows Feather to run
+| smoothly.
 |
 */
 
 $app['config']->package('feather/feather', __DIR__);
 
-$app['config']['database.connections.'.FEATHER_DATABASE] = $app['config']['feather::database'];
+$app['config']->set('database.connections.'.FEATHER_DATABASE, $app['config']['feather::database']);
 
-// TODO: Remove after development.
-if ($app['cache']->has('config')) $app['cache']->forget('config');
+$app['config']->set('database.migration.paths.feather', $app['feather']['path'].'/Migrations');
+
+if ($app['cache']->has('config'))
+{
+	$app['cache']->forget('config');
+}
 
 foreach (Models\Config::everything() as $item)
 {
-	$app['config']["feather::{$item->name}"] = $item->value;
+	$app['config']->set("feather::{$item->name}", $item->value);
 }
 
 /*
@@ -76,14 +94,11 @@ require __DIR__.'/facades.php';
 | Feather Theme
 |--------------------------------------------------------------------------
 |
-| Prepare the theme to be used by Feather and register some view paths.
+| Prepare the theme for Feather and setup theme development mode.
 |
 */
 
-$app['feather']['presenter']->prepare(array(
-	'path'		  => $app['feather']['path'],
-	'path.themes' => $app['feather']['path.themes']
-));
+$app['feather']['presenter']->prepare();
 
 /*
 |--------------------------------------------------------------------------
